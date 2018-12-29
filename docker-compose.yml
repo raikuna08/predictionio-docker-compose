@@ -8,7 +8,7 @@ services:
       - POSTGRES_PASSWORD=1234
 
   elasticsearch:
-    image: elasticsearch:1.7.6
+    image: elasticsearch:5.6.14
     ports:
     - 9200:9200
     - 9300:9300
@@ -30,6 +30,7 @@ services:
     - elasticsearch
     volumes:
     - ./files/pio-env.sh:/opt/pio/conf/pio-env.sh
+    - ./universal-recommender/:/root/ur
     command: /etc/service/pio_event/run
     ports:
     - 7070:7070
