@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-SPARK_HOME=${PIO_HOME}/vendors/spark-${SPARK_VERSION}-bin-hadoop2.6
+SPARK_HOME=${PIO_HOME}/vendors/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}
 
 POSTGRES_JDBC_DRIVER=${PIO_HOME}/vendors/postgresql-${JDBC_PGSQL_VERSION}.jar
 PIO_STORAGE_SOURCES_PGSQL_TYPE=jdbc

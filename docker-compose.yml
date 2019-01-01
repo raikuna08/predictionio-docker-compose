@@ -44,6 +44,7 @@ services:
     - elasticsearch
     volumes:
     - ./files/pio-env.sh:/opt/pio/conf/pio-env.sh
+    - ./universal-recommender/:/root/ur
     command: /etc/service/pio_query/run
     ports:
     - 8000:8000
