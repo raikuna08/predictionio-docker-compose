@@ -35,21 +35,22 @@ services:
     - elasticsearch
     volumes:
     - ./files/pio-env.sh:/opt/pio/conf/pio-env.sh
+    - ./files/hbase/hbase-client-config.xml:${PIO_HOME}/vendors/hbase/conf/hbase-site.xml
     command: /etc/service/pio_event/run
     ports:
     - 7070:7070
 
-  pio_queries:
-    build: .
-    image: predictionio
-    container_name: pio_queries
-    depends_on:
-    - pio
-    - hbase
-    - elasticsearch
-    volumes:
-    - ./files/pio-env.sh:/opt/pio/conf/pio-env.sh
-    - ./universal-recommender/engine.json:/root/ur/engine.json
-    command: /etc/service/pio_query/run
-    ports:
-    - 8000:8000
+#  pio_queries:
+#    build: .
+#    image: predictionio
+#    container_name: pio_queries
+#    depends_on:
+#    - pio
+#    - hbase
+#    - elasticsearch
+#    volumes:
+#    - ./files/pio-env.sh:/opt/pio/conf/pio-env.sh
+#    - ./universal-recommender/engine.json:/root/ur/engine.json
+#    command: /etc/service/pio_query/run
+#    ports:
+#    - 8000:8000
