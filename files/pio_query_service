@@ -9,16 +9,28 @@ sleep 2
 
 cd /root/ur
 
-exec pio app list 2>&1 | grep -qi "likes"
+echo ""
+echo "Checking status, should exit if pio is not running."
+pio status
+pio app new handmade || true
 
-if [ $? -eq 0 ] ; then
-  echo "app is already present"
-else
-  pio app new --access-key piokey likes
-  echo "new app created"
-  pio build
-  sh examples/import_likes_data.sh
-  pio train
-fi
+echo ""
+echo "Checking to see if handmade app exists, should exit if not."
+pio app show handmade
 
-pio deploy 
+pio app data-delete handmade -f
+
+echo ""
+echo "Importing sample data"
+# get the access_key from pio app list
+ACCESS_KEY=`pio app show handmade | grep Key | cut -f 7 -d ' '`
+echo -n "Access key: "
+echo $ACCESS_KEY
+python3 examples/import_handmade.py --access_key $ACCESS_KEY --file data/sample-handmade-data.txt  --url http://pio:7070
+
+echo ""
+echo "Building and delpoying model"
+pio build --clean
+pio train  -- --driver-memory 4g --executor-memory 4g
+echo "Model will remain deployed after this test"
+pio deploy

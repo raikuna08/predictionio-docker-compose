@@ -42,7 +42,7 @@ pip3 install --upgrade pip && \
 rm -rf /tmp/* && \
 	rm -rf /etc/service/{cron,syslog-forwarder,syslog-ng,sshd}
 
-#COPY files/pio_event_service /etc/service/pio_event/run
-#COPY files/pio_query_service /etc/service/pio_query/run
-#COPY universal-recommender /root/ur
-#COPY files/import_likes_data.sh /root/ur/examples/import_likes_data.sh
+COPY files/pio_event_service /etc/service/pio_event/run
+COPY files/pio_query_service /etc/service/pio_query/run
+COPY universal-recommender /root/ur
+COPY files/import_likes_data.sh /root/ur/examples/import_likes_data.sh

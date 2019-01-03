@@ -46,5 +46,4 @@ RUN rm -rf /tmp/* && \
 
 COPY files/pio_event_service /etc/service/pio_event/run
 COPY files/pio_query_service /etc/service/pio_query/run
-#COPY universal-recommender /root/ur
-COPY files/import_likes_data.sh /root/ur/examples/import_likes_data.sh
+COPY universal-recommender /root/ur
