@@ -1,12 +1,14 @@
 version: '2'
 
 services:
-  pio_db:
-    image: postgres:9.6
-    container_name: pio_db
-    environment:
-      - POSTGRES_USER=predictionio
-      - POSTGRES_PASSWORD=1234
+  hbase:
+    image: hyness/hbase-rest-standalone 
+    container_name: hbase
+    volumes:
+        - ./files/hbase/hbase-server-config.xml:/opt/hbase/conf/hbase-site.xml # The config file
+        - ./files/hbase/hbase-data/:/data/hbase
+        - ./files/hbase/zookeeper-data/:/data/zookeeper
+    hostname: hbase
 
   elasticsearch:
     image: elasticsearch:5.6.14
@@ -29,7 +31,7 @@ services:
     image: predictionio
     container_name: pio
     depends_on:
-    - pio_db
+    - hbase
     - elasticsearch
     volumes:
     - ./files/pio-env.sh:/opt/pio/conf/pio-env.sh
@@ -43,7 +45,7 @@ services:
     container_name: pio_queries
     depends_on:
     - pio
-    - pio_db
+    - hbase
     - elasticsearch
     volumes:
     - ./files/pio-env.sh:/opt/pio/conf/pio-env.sh
