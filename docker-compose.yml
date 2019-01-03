@@ -35,7 +35,7 @@ services:
     - elasticsearch
     volumes:
     - ./files/pio-env.sh:/opt/pio/conf/pio-env.sh
-    - ./files/hbase/hbase-client-config.xml:${PIO_HOME}/vendors/hbase/conf/hbase-site.xml
+    - ./files/hbase/hbase-client-config.xml:/opt/pio/vendors/hbase/conf/hbase-site.xml
     command: /etc/service/pio_event/run
     ports:
     - 7070:7070
