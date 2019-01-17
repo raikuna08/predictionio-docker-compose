@@ -23,25 +23,59 @@
       "comment": "simplest setup where all values are default, popularity based backfill, must add eventsNames",
       "name": "ur",
       "params": {
-        "appName": "handmade",
+        "name": "ur",
+      "params": {
+        "appName": "app1",
         "indexName": "urindex",
         "typeName": "items",
-        "comment": "must have data for the first event or the model will not build, other events are optional",
+        "numESWriteConnections": 100, // how many simultaneous connection in writing to ES
+        "eventNames": ["buy", "view"],
         "indicators": [
+            {
+                "name": "purchase"
+            },{
+                "name": "view",
+                "maxCorrelatorsPerItem": 50,
+                "minLLR": 5
+            }
+        ],
+        "blacklistEvents": ["buy", "view"],
+        "maxEventsPerEventType": 500,
+        "maxCorrelatorsPerEventType": 50,
+        "maxQueryEvents": 100,
+        "num": 20,
+        "seed": 3,
+        "recsModel": "all",
+        "rankings": [
           {
-            "name": "purchase"
-          },{
-            "name": "view",
-            "maxCorrelatorsPerItem": 50
-          },{
-            "name": "category-pref",
-            "maxCorrelatorsPerItem": 50
+            "name": "popRank"
+            "type": "popular", // or "trending" or "hot"
+            "eventNames": ["buy", "view"],
+            "duration": "3 days",
+            "endDate": "ISO8601-date" // most recent date to end the duration
+          },
+          {
+            "name": "uniqueRank"
+            "type": "random"
+          },
+          {
+            "name": "preferredRank"
+            "type": "userDefined"
           }
         ],
-        "availableDateName": "available",
-        "expireDateName": "expires",
-        "dateName": "date",
-        "num": 4
+        "expireDateName": "expireDateFieldName",
+        "availableDateName": "availableDateFieldName",
+        "dateName": "dateFieldName",
+        "userbias": 0,
+        "itembias": 0,
+        "returnSelf": true | false,
+        "fields": [
+          {
+            "name": "fieldname",
+            "values": ["fieldValue1"],
+            "bias": 0,
+          }
+        ]
       }
     }
   ]
